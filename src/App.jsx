@@ -5,7 +5,6 @@ import HabitBoxesComponent from "./HabitBoxesComponent.jsx";
 // this is the destructuring from react router
 import { Switch, Route, Link } from "react-router-dom";
 
-
 // style importing - Eliot test
 import "../public/style.css";
 
@@ -19,7 +18,6 @@ import HabitCalendar from "./CalendarComponent.jsx";
 //Importing test Form component to test rendering to page - Ashley
 import Form from "./FormComponent.jsx";
 
-
 // this is the destructuring from react router
 // import { useState, useEffect } from "react";
 
@@ -32,7 +30,7 @@ chosen from the home page.
   constructor(props) {
     super(props);
     this.state = {
-      habitName: []
+      username: ""
     };
   }
 
@@ -43,9 +41,19 @@ chosen from the home page.
           <h1>APP</h1>
           {/* NOTE:  needed to change path to Form component so we can pass habit-id as a prop in Form */}
           <Route exact strict path="/habit/:id/input" component={Form} />
-          <Route exact strict path="/cal" component={HabitCalendar} />
+          <Route
+            exact
+            strict
+            path="/habit/:id/input/cal"
+            component={HabitCalendar}
+          />
           {/* NOTE:  needed to change path to HB component so we can pass use specific habit id*/}
-          <Route exact strict path="/habit/:id" component={HabitBoxesComponent} />
+          <Route
+            exact
+            strict
+            path="/habit/:id"
+            component={HabitBoxesComponent}
+          />
           <Route exact strict path="/" component={BoxesContainer} />
         </div>
       </Switch>

@@ -1,4 +1,12 @@
 import React from "react";
+import { Switch, Route, Link } from "react-router-dom";
+import Button from "@material-ui/core/Button";
+import {
+  ButtonGroup,
+  makeStyles,
+  ButtonBase,
+  Typography
+} from "@material-ui/core";
 // import App from "./App.jsx";
 
 /*
@@ -8,17 +16,26 @@ Payload from this form should posted to psql database.
 Upon click of "Generate Calendar" react calendar should render.
 */
 
-const Form = () => {
+const Form = props => {
+  const {
+    match: {
+      params: { id }
+    }
+  } = props;
+
   return (
     <form id="inputForm">
-      <label for="habitMemo">Habit Memo:</label>
+      <h1>
+        <u>Habit Tracker</u>
+      </h1>
+      <label htmlFor="habitMemo">Habit Memo:</label>
       <input
         type="text"
         id="habitMemo"
         placeholder="Habit Encouragement Memo"
       />
       <br></br>
-      <label for="frequency">Frequency: </label>
+      <label htmlFor="frequency">Frequency: </label>
       <select id="frequency" name="frequency">
         <option value="1">1</option>
         <option value="2">2</option>
@@ -31,13 +48,19 @@ const Form = () => {
         <option value="9">9</option>
         <option value="10">10</option>
       </select>
-      <label for="frequency">:Per Hour</label>
+      <label htmlFor="frequency">:Per Hour</label>
       <br></br>
-      <label for="startDate"> Start Date:</label>
+      <label htmlFor="startDate"> Start Date:</label>
       <input type="date" id="startDate" />
-      <label for="endDate"> End Date:</label>
+      <label htmlFor="endDate"> End Date:</label>
       <input type="date" id="endDate" />
-      <input type="submit" value="Generate Calendar" />
+      <Button
+        component={Link}
+        to={`/habit/${id}/input/cal`}
+        varient="contained"
+      >
+        Generate Calendar
+      </Button>
     </form>
   );
 };
