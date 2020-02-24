@@ -40,11 +40,13 @@
   },
   "dependencies": {
     "express": "^4.17.1",
+    "moment": "^2.24.0",
     "nodemon": "^2.0.2",
     "pg": "^7.18.2",
     "psql": "0.0.1",
     "react": "^16.12.0",
     "react-big-calendar": "^0.24.0",
+    "react-calendar": "^2.19.2",
     "react-dom": "^16.12.0",
     "react-hook-form": "^4.9.8",
     "react-hot-loader": "^4.12.19",
