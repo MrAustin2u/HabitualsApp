@@ -28,3 +28,8 @@ align-items: 'center'
   background-color: red;
   width: fit-content;
 }
+
+#title-logo {
+  display: flex;
+  justify-content: center;
+}

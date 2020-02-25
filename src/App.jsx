@@ -35,10 +35,18 @@ chosen from the home page.
   }
 
   render() {
+    /// injecting URL from google's api for Login button at initial render
+    fetch("/loginUrl", {
+      method: "GET"
+    })
+      .then(res => res.json())
+      .then(loginUrl => {
+        console.log(loginUrl);
+      });
+
     return (
       <Switch>
         <div>
-          <h1>APP</h1>
           {/* NOTE:  needed to change path to Form component so we can pass habit-id as a prop in Form */}
           <Route exact strict path="/habit/:id/input" component={Form} />
           <Route

@@ -1,42 +1,47 @@
 const express = require("express");
 const app = express();
 const path = require("path");
-const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
-
-// client secret
-const client_secret = require('../client_secret/client_secret');
-// client id from google oath
-const client_id = "371087135-djckvfenrkntg92agsc5c7csq2d3cej1.apps.googleusercontent.com";
-
+const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
+const queryString = require("query-string");
 
 // require routes
-const api = require('./routes/api');
+const api = require("./routes/api");
 
 // handle parsing request body
 app.use(express.json());
+app.use(cookieParser());
+app.use("/public", express.static(path.resolve(__dirname, "../public")));
 
 // route to render html on home page
 app.get("/", (req, res) => {
+  console.log(req.query);
   res.sendFile(path.join(__dirname, "../public/index.html"));
 });
+
+// route to render html on home page
+app.use("/", api);
 
 // route to handle webpack
 app.get("/dist/bundle.js", (req, res) => {
   res.status(200).sendFile(path.join(__dirname, "../dist/bundle.js"));
 });
 
-// route to api's to handle users/habits requests
-app.use('/', api);
+// route to render habit options on home page
+app.use("/habits", api);
 
-// catch-all route handler for any requests to an unknown route
-app.use("/", (req, res, next) => {
-  res.sendStatus(404);
-});
+// route to post user input from form to db
+app.use("/user-input", api);
+
+// route to get habit information to render when a habit option is clicked
+app.use("/habit-info", api);
+
+//route to check for user in DB
+app.use("/user", api);
 
 // error handler
 app.use((err, req, res, next) => {
-  consoe.log(err)
+  console.log(err);
   const defaultErr = {
     log: "Express error handler caught unknown middleware error",
     status: 400,
@@ -45,11 +50,5 @@ app.use((err, req, res, next) => {
   const errObj = Object.assign(defaultErr, err);
   res.status(errObj.status).json(errObj.message);
 });
-
-// route to render html on home page
-app.get("/*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../public/index.html"));
-});
-//NOTE: used "/*" so if refreshed, will go to homepage plus changed to bottom so it can reach specific endpoints
 
 app.listen(3000);
