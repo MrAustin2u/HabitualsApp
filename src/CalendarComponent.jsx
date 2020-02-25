@@ -54,9 +54,6 @@ const HabitCalendar = props => {
             end: new Date(2020, 0, 1, 14, 0)
           }
         ]}
-        step={5}
-        timeslots={3}
-        view=
         startAccessor="start"
         endAccessor="end"
       />
